@@ -3,10 +3,12 @@ package com.andy.petclinic.service.map;
 import com.andy.petclinic.model.Owner;
 import com.andy.petclinic.service.CrudService;
 import com.andy.petclinic.service.OwnerService;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+@Component
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
@@ -24,12 +26,17 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     }
 
     @Override
-    public Owner save(Long id, Owner object) {
-        return super.save(id, object);
+    public Owner save(Owner object) {
+        return super.save(object.getId(), object);
     }
 
     @Override
     public Owner findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
     }
 }
