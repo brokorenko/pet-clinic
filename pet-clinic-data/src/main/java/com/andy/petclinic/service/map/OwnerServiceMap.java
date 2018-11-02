@@ -5,15 +5,17 @@ import com.andy.petclinic.model.Pet;
 import com.andy.petclinic.service.OwnerService;
 import com.andy.petclinic.service.PetService;
 import com.andy.petclinic.service.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
-    private PetTypeService petTypeService;
-    private PetService petService;
+    private final PetTypeService petTypeService;
+    private final PetService petService;
 
     public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
         this.petTypeService = petTypeService;
@@ -46,7 +48,7 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
                     } else
                         throw new RuntimeException("Pet Type required");
 
-                    if (pet.getId() != null) {
+                    if (pet.getId() == null) {
                         Pet savedPet = petService.save(pet);
                         pet.setId(savedPet.getId());
                     }
