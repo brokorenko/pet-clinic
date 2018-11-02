@@ -31,9 +31,9 @@ public class PetsSDJpaService implements PetService {
     }
 
     @Override
-    public Pet findById(Long aLong) {
+    public Pet findById(Long id) {
 
-        Optional<Pet> pet = petRepository.findById(aLong);
+        Optional<Pet> pet = petRepository.findById(id);
 
         return pet.orElse(null);
 
@@ -51,8 +51,8 @@ public class PetsSDJpaService implements PetService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(Long id) {
 
-        petRepository.deleteById(aLong);
+        petRepository.deleteById(id);
     }
 }

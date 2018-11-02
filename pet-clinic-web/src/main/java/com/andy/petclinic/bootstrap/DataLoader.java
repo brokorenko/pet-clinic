@@ -1,10 +1,7 @@
 package com.andy.petclinic.bootstrap;
 
 import com.andy.petclinic.model.*;
-import com.andy.petclinic.service.OwnerService;
-import com.andy.petclinic.service.PetTypeService;
-import com.andy.petclinic.service.SpecialtyService;
-import com.andy.petclinic.service.VetService;
+import com.andy.petclinic.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,16 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
+    private final PetService petService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService, VisitService visitService, PetService petService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
+        this.petService = petService;
     }
 
 
@@ -76,6 +77,13 @@ public class DataLoader implements CommandLineRunner {
         owner1.getPetSet().add(mickPet);
 
         ownerService.save(owner1);
+
+        Visit dogVisit = new Visit();
+        dogVisit.setDescription("Dog Sneezing");
+        dogVisit.setDate(LocalDate.now());
+        dogVisit.setPet(mickPet);
+
+        visitService.save(dogVisit);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Voven");
